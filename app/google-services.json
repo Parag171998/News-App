@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "500937100608",
+    "firebase_url": "https://appyhigh-task.firebaseio.com",
+    "project_id": "appyhigh-task",
+    "storage_bucket": "appyhigh-task.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:500937100608:android:669d2c8bc0ad0ae395fea5",
+        "android_client_info": {
+          "package_name": "com.example.appyhightask"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "500937100608-kag1j1oo6nb6fn9o5201qrg1r1iqvb10.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcdZv1pNjVDY70v8_8vtgQfidseRVbOv0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "500937100608-kag1j1oo6nb6fn9o5201qrg1r1iqvb10.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
