@@ -1,4 +1,6 @@
-package com.example.appyhightask;
+package com.example.appyhightask.network;
+
+import com.example.appyhightask.models.NewsData;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

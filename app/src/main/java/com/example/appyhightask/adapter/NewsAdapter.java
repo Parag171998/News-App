@@ -1,4 +1,4 @@
-package com.example.appyhightask;
+package com.example.appyhightask.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,15 +6,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.QuickContactBadge;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.appyhightask.models.Article;
+import com.example.appyhightask.activities.NewsFeed;
+import com.example.appyhightask.R;
 
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
@@ -47,19 +52,19 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder
     {
+        @BindView(R.id.newsImg)
         ImageView newsImg;
+        @BindView(R.id.newsTitle)
         TextView newsTitle;
 
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
-
-            newsImg = itemView.findViewById(R.id.newsImg);
-            newsTitle = itemView.findViewById(R.id.newsTitle);
+            ButterKnife.bind(this,itemView);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(layoutInflater.getContext(),NewsFeed.class);
+                    Intent intent = new Intent(layoutInflater.getContext(), NewsFeed.class);
                     intent.putExtra("newsUrl",articleList.get(getAdapterPosition()).getUrl());
                     layoutInflater.getContext().startActivity(intent);
                 }

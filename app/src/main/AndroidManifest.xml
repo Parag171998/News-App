@@ -19,8 +19,8 @@
             android:value="ca-app-pub-2942604970629590~4731587664"
             android:name="com.google.android.gms.ads.APPLICATION_ID"></meta-data>
 
-        <activity android:name=".NewsFeed"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.NewsFeed"></activity>
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

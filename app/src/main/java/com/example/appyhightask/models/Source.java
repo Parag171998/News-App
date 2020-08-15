@@ -1,5 +1,5 @@
 
-package com.example.appyhightask;
+package com.example.appyhightask.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
