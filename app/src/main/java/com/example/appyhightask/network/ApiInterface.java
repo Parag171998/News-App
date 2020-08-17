@@ -1,6 +1,7 @@
 package com.example.appyhightask.network;
 
 import com.example.appyhightask.models.NewsData;
+import com.example.appyhightask.models.WeatherInfo;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -14,4 +15,6 @@ public interface ApiInterface {
             @Query("apiKey") String apiKey
     );
 
+    @GET("current.json?key=3f6a5b20fa77437dbba155853201708")
+    Call<WeatherInfo> getWeather( @Query("q") String location );
 }

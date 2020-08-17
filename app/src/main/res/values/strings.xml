@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">AppyHigh Task</string>
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+
+    <string name="text_message">Fetching weather…</string>
+    <string name="text_message_try">Try again!</string>
+
 </resources>

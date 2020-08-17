@@ -5,10 +5,12 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.appyhightask.models.NewsData;
+import com.example.appyhightask.models.WeatherInfo;
 import com.example.appyhightask.repository.MyRepository;
 
-public class NewsViewModel extends ViewModel {
+public class MainViewModel extends ViewModel {
 	private MutableLiveData<NewsData> newsDataMutableLiveData = null;
+	private MutableLiveData<WeatherInfo> weatherInfoMutableLiveData = null;
 
 	private MyRepository myRepository;
 
@@ -21,8 +23,17 @@ public class NewsViewModel extends ViewModel {
 		newsDataMutableLiveData = myRepository.getNews(country);
 	}
 
-	public LiveData<NewsData> getTopRatedMoviesMutableLiveData()
+	public void initLocation(String location){
+		weatherInfoMutableLiveData = myRepository.getWeather(location);
+	}
+
+	public LiveData<NewsData> getHeadlines()
 	{
 		return this.newsDataMutableLiveData;
+	}
+
+	public LiveData<WeatherInfo> getWeatherInfo()
+	{
+		return weatherInfoMutableLiveData;
 	}
 }
