@@ -20,15 +20,16 @@
 
     </WebView>
 
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
-        android:layout_width="0dp"
+    <FrameLayout
+        android:id="@+id/id_native_ad"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/wv"
-        app:layout_constraintStart_toStartOf="@+id/wv"></com.google.android.gms.ads.AdView>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"
