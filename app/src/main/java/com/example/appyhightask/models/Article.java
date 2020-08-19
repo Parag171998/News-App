@@ -1,14 +1,23 @@
 
 package com.example.appyhightask.models;
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+@Entity
 public class Article {
 
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+    @Ignore
     @SerializedName("source")
     @Expose
     private Source source;
+    @Ignore
     @SerializedName("author")
     @Expose
     private String author;
@@ -30,6 +39,14 @@ public class Article {
     @SerializedName("content")
     @Expose
     private String content;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Source getSource() {
         return source;

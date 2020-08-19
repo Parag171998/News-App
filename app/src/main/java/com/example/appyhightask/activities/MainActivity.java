@@ -2,9 +2,11 @@ package com.example.appyhightask.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -13,6 +15,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.view.View;
@@ -32,6 +35,7 @@ import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.Task;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -100,15 +104,48 @@ public class MainActivity extends AppCompatActivity{
         recyclerView.setAdapter(newsAdapter);
 
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        mainViewModel.init(getUserCountry());
+        mainViewModel.init(getUserCountry(), getApplication());
 
-        mainViewModel.getHeadlines().observe(this, newsData -> {
-            articleList.addAll(newsData.getArticles());
-            newsAdapter.notifyDataSetChanged();
-        });
+        if(isNetworkConnected()){
+            if(isInternetAvailable()){
+                mainViewModel.getHeadlines().observe(this, newsData -> {
+                    articleList.addAll(newsData.getArticles());
+                    newsAdapter.notifyDataSetChanged();
+                });
+            }
+            else {
+                mainViewModel.getRoomArticles().observe(this, articles -> {
+                        articleList.addAll(articles);
+                        newsAdapter.notifyDataSetChanged();
+                });
+            }
+        }
+        else {
+            mainViewModel.getRoomArticles().observe(this, articles -> {
+                    articleList.addAll(articles);
+                    newsAdapter.notifyDataSetChanged();
+
+            });
+        }
 
     }
 
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnected();
+    }
+
+    public boolean isInternetAvailable() {
+        try {
+            InetAddress ipAddr = InetAddress.getByName("google.com");
+            //You can replace it with your name
+            return !ipAddr.equals("");
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
     private void startLocation() {
         txtMessage.setText(getString(R.string.text_message));
         tempF.setVisibility(View.INVISIBLE);
