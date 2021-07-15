@@ -45,8 +45,9 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Glide.with(layoutInflater.getContext()).load(articleList.get(position).getUrlToImage()).into(holder.newsImg);
-        holder.newsTitle.setText(articleList.get(position).getTitle());
+        Article article = articleList.get(position);
+        Glide.with(layoutInflater.getContext()).load(article.getUrlToImage()).into(holder.newsImg);
+        holder.newsTitle.setText(article.getTitle());
         if(itemCallBack == null){
             holder.btnSave.setVisibility(View.GONE);
         }
@@ -62,6 +63,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     @Override
     public int getItemCount() {
         return articleList.size();
+    }
+
+    public void updateList(List<Article> list){
+        articleList = list;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder

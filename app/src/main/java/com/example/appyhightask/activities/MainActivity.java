@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
@@ -32,9 +33,11 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity implements NewsAdapter.ItemCallBack {
 
     public static String SAVED_LIST = "saved_list";
+
     @BindView(R.id.recyclerview)
     RecyclerView recyclerView;
-
+    @BindView(R.id.searchView)
+    SearchView searchView;
     List<Article> articleList;
     List<Article> savedArticleList;
     NewsAdapter newsAdapter;
@@ -46,6 +49,32 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.ItemC
         setTitle("News");
         ButterKnife.bind(this);
         initViews();
+        setSearchView();
+    }
+
+    private void setSearchView() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                filter(s);
+                return false;
+            }
+        });
+    }
+
+    void filter(String text){
+        List<Article> temp = new ArrayList();
+        for(Article d: articleList){
+            if(d.getTitle().toLowerCase().contains(text.toLowerCase())){
+                temp.add(d);
+            }
+        }
+        newsAdapter.updateList(temp);
     }
 
     @Override
