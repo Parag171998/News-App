@@ -40,6 +40,14 @@
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#94C77D"
+                android:text="Save"
+                android:textColor="#FFFFFF" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

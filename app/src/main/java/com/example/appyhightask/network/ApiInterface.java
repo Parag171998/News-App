@@ -15,6 +15,6 @@ public interface ApiInterface {
             @Query("apiKey") String apiKey
     );
 
-    @GET("current.json?key=3f6a5b20fa77437dbba155853201708")
+    @GET("current.json?key=6d0df12f66ef4483bad3908f781308b1")
     Call<WeatherInfo> getWeather( @Query("q") String location );
 }

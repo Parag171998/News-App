@@ -4,5 +4,6 @@
 
     <string name="text_message">Fetching weather…</string>
     <string name="text_message_try">Try again!</string>
+    <string name="saved">Saved</string>
 
 </resources>

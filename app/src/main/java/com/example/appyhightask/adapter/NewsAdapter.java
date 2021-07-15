@@ -1,10 +1,12 @@
 package com.example.appyhightask.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,14 +23,17 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+@SuppressLint("NonConstantResourceId")
 public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     LayoutInflater layoutInflater;
     List<Article> articleList;
+    ItemCallBack itemCallBack;
 
-    public NewsAdapter(Context context, List<Article> articleList) {
+    public NewsAdapter(Context context, List<Article> articleList, ItemCallBack itemCallBack) {
         this.layoutInflater = layoutInflater.from(context);
         this.articleList = articleList;
+        this.itemCallBack = itemCallBack;
     }
 
     @NonNull
@@ -40,9 +45,18 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
         Glide.with(layoutInflater.getContext()).load(articleList.get(position).getUrlToImage()).into(holder.newsImg);
         holder.newsTitle.setText(articleList.get(position).getTitle());
+        if(itemCallBack == null){
+            holder.btnSave.setVisibility(View.GONE);
+        }
+        else {
+            holder.btnSave.setOnClickListener(view -> {
+                itemCallBack.onItemClick(position);
+                holder.btnSave.setClickable(false);
+                holder.btnSave.setText(R.string.saved);
+            });
+        }
     }
 
     @Override
@@ -56,19 +70,22 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         ImageView newsImg;
         @BindView(R.id.newsTitle)
         TextView newsTitle;
+        @BindView(R.id.btnSave)
+        Button btnSave;
 
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(layoutInflater.getContext(), NewsFeed.class);
-                    intent.putExtra("newsUrl",articleList.get(getAdapterPosition()).getUrl());
-                    layoutInflater.getContext().startActivity(intent);
-                }
+            itemView.setOnClickListener(view -> {
+                Intent intent = new Intent(layoutInflater.getContext(), NewsFeed.class);
+                intent.putExtra("newsUrl",articleList.get(getAdapterPosition()).getUrl());
+                layoutInflater.getContext().startActivity(intent);
             });
         }
+    }
+
+    public interface ItemCallBack{
+        public void onItemClick(int position);
     }
 }
